@@ -35,8 +35,8 @@ $posts = $stmt->fetchAll();
 </head>
 <body class="bg-white">
     <!-- Navbar -->
-    <nav class="bg-white border-b border-gray-100">
-        <div class="max-w-6xl mx-auto px-4">
+    <nav class="bg-white">
+        <div class="max-w-6xl mx-auto">
             <div class="flex justify-between items-center h-16">
                 <div>
                     <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">TechBlog</a>
@@ -64,7 +64,7 @@ $posts = $stmt->fetchAll();
 
     <!-- Categories -->
     <div class="py-6">
-        <div class="max-w-6xl mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
             <div class="flex justify-center space-x-12">
                 <a href="index.php" class="<?= !$categoria ? 'text-purple-600' : 'text-gray-600 hover:text-gray-900' ?>">all topics</a>
                 <a href="index.php?categoria=programacion" class="<?= $categoria === 'programacion' ? 'text-purple-600' : 'text-gray-600 hover:text-gray-900' ?>">programación</a>
@@ -77,13 +77,13 @@ $posts = $stmt->fetchAll();
 
     <!-- Header -->
     <header class="py-20">
-        <div class="max-w-6xl mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
             <h1 class="text-6xl font-serif text-center"><?= htmlspecialchars($titulo_pagina) ?></h1>
         </div>
     </header>
 
     <!-- Posts Grid -->
-    <main class="max-w-6xl mx-auto px-4 pb-20">
+    <main class="max-w-6xl mx-auto pb-20">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
             <?php foreach ($posts as $post): ?>
                 <article class="group">
