@@ -55,45 +55,59 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         });
     </script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-white">
+    <nav class="py-4">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <a href="index.php" class="text-xl font-medium">TechBlog</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="max-w-4xl mx-auto py-12 px-4">
         <div class="bg-white rounded-lg shadow-md p-8">
-            <h2 class="text-2xl font-bold mb-6">Nuevo Post</h2>
+            <h2 class="text-3xl font-serif mb-8">Nuevo Post</h2>
             
             <?php if ($error): ?>
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded mb-6">
                     <?= htmlspecialchars($error) ?>
                 </div>
             <?php endif; ?>
 
             <?php if ($success): ?>
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                <div class="bg-green-50 border border-green-200 text-green-600 px-4 py-3 rounded mb-6">
                     <?= htmlspecialchars($success) ?>
                 </div>
             <?php endif; ?>
 
             <form method="POST" class="space-y-6">
                 <div>
-                    <label for="titulo" class="block text-sm font-medium text-gray-700">Título</label>
+                    <label for="titulo" class="block text-base font-serif text-gray-900 mb-2">Título</label>
                     <input type="text" id="titulo" name="titulo" required 
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                           class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-black focus:ring-black">
                 </div>
 
                 <div>
-                    <label for="categoria" class="block text-sm font-medium text-gray-700">Categoría</label>
-                    <input type="text" id="categoria" name="categoria" required 
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                    <label for="categoria" class="block text-base font-serif text-gray-900 mb-2">Categoría</label>
+                    <select id="categoria" name="categoria" required 
+                            class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-black focus:ring-black">
+                        <option value="">Selecciona una categoría</option>
+                        <option value="programacion">Programación</option>
+                        <option value="hardware">Hardware</option>
+                        <option value="software">Software</option>
+                        <option value="redes">Redes</option>
+                    </select>
                 </div>
 
                 <div>
-                    <label for="contenido" class="block text-sm font-medium text-gray-700">Contenido</label>
+                    <label for="contenido" class="block text-base font-serif text-gray-900 mb-2">Contenido</label>
                     <textarea id="contenido" name="contenido" rows="10" required 
-                              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+                              class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-black focus:ring-black"></textarea>
                 </div>
 
                 <div class="flex justify-end">
                     <button type="submit" 
-                            class="bg-blue-600 text-white rounded-md py-2 px-4 hover:bg-blue-700">
+                            class="bg-black text-white rounded-lg py-3 px-6 hover:bg-gray-800 transition-colors">
                         Publicar Post
                     </button>
                 </div>
