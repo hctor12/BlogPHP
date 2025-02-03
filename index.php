@@ -24,6 +24,18 @@ if ($categoria) {
 }
 
 $posts = $stmt->fetchAll();
+
+// Función para obtener la imagen según la categoría
+function getCategoryImage($categoria) {
+    $images = [
+        'programacion' => 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3',
+        'hardware' => 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?ixlib=rb-4.0.3',
+        'software' => 'https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3',
+        'redes' => 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3'
+    ];
+    
+    return $images[$categoria] ?? $images['programacion'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -88,7 +100,7 @@ $posts = $stmt->fetchAll();
             <?php foreach ($posts as $post): ?>
                 <article class="group">
                     <a href="post.php?id=<?= $post['id'] ?>" class="block aspect-[4/3] overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3" 
+                        <img src="<?= getCategoryImage($post['categoria']) ?>" 
                              alt="<?= htmlspecialchars($post['titulo']) ?>"
                              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                     </a>
