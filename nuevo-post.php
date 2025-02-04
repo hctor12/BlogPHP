@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="h-screen">
     <nav class="bg-white">
         <div class="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-14">
+            <div class="flex justify-between items-center h-16">
                 <div>
                     <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">Blog</a>
                 </div>
@@ -77,7 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </header>
 
-    <!-- Se establece que el main ocupe el alto completo de la pantalla -->
     <main class="max-w-3xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col pb-12 md:pb-20">
         <?php if ($error): ?>
             <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-2 rounded mb-4">
@@ -117,7 +116,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="hidden" name="contenido" id="contenido">
             </div>
 
-            <div class="flex justify-end pt-4">
+            <div class="flex justify-end space-x-4 pt-4">
+                <a href="javascript:history.back()" 
+                   class="bg-gray-100 text-gray-700 rounded-lg py-2 px-4 sm:py-2.5 sm:px-6 hover:bg-gray-200 transition-colors text-base sm:text-lg">
+                    Cancelar
+                </a>
                 <button type="submit" 
                         class="bg-black text-white rounded-lg py-2 px-4 sm:py-2.5 sm:px-6 hover:bg-gray-800 transition-colors text-base sm:text-lg">
                     Publicar Post
@@ -127,7 +130,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </main>
     </div>
 
-    <!-- El footer se posiciona debajo del main -->
     <footer class="bg-black text-white py-8 md:py-12">
         <div class="max-w-6xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -212,5 +214,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </script>
 </body>
 </html>
-
-

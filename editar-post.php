@@ -16,7 +16,8 @@ $stmt = $pdo->prepare("SELECT * FROM posts WHERE id = :id");
 $stmt->execute(['id' => $id]);
 $post = $stmt->fetch();
 
-if (!$post || ($post['autor_id'] != $_SESSION['user_id'] && !$_SESSION['is_admin'])) {
+// Modificamos la lógica para que solo el autor pueda editar su post
+if (!$post || $post['autor_id'] != $_SESSION['user_id']) {
     header('Location: index.php');
     exit;
 }
@@ -69,9 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="h-screen">
         <nav class="bg-white">
             <div class="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-14">
+                <div class="flex justify-between items-center h-16">
                     <div>
-                        <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">Blog</a>
+                    <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">Blog</a>
                     </div>
                     <div class="flex items-center space-x-4">
                         <?php if(isset($_SESSION['user_id'])): ?>
@@ -132,7 +133,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input type="hidden" name="contenido" id="contenido">
                 </div>
 
-                <div class="flex justify-end pt-4">
+                <div class="flex justify-end space-x-4 pt-4">
+                    <a href="javascript:history.back()" 
+                       class="bg-gray-100 text-gray-700 rounded-lg py-2 px-4 sm:py-2.5 sm:px-6 hover:bg-gray-200 transition-colors text-base sm:text-lg">
+                        Cancelar
+                    </a>
                     <button type="submit" 
                             class="bg-black text-white rounded-lg py-2 px-4 sm:py-2.5 sm:px-6 hover:bg-gray-800 transition-colors text-base sm:text-lg">
                         Actualizar Post

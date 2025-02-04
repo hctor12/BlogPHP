@@ -21,8 +21,10 @@ if (!$post) {
     exit;
 }
 
-$puede_editar = isset($_SESSION['user_id']) && 
-                ($_SESSION['user_id'] == $post['autor_id'] || $_SESSION['is_admin']);
+$puede_editar = isset($_SESSION['user_id']) && $_SESSION['user_id'] == $post['autor_id'];
+$puede_eliminar = isset($_SESSION['user_id']) && 
+                 ($_SESSION['user_id'] == $post['autor_id'] || 
+                  ($_SESSION['is_admin'] && $_SESSION['user_id'] != $post['autor_id']));
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -82,22 +84,25 @@ $puede_editar = isset($_SESSION['user_id']) &&
                     <?= $post['contenido'] ?>
                 </div>
 
-                <?php if ($puede_editar): ?>
                 <div class="mt-8 flex space-x-4">
-                    <a href="editar-post.php?id=<?= $post['id'] ?>" 
-                       class="bg-black text-white rounded-lg py-3 px-6 hover:bg-gray-800 transition-colors">
-                        Editar
-                    </a>
-                    <form method="POST" action="eliminar-post.php" class="inline">
-                        <input type="hidden" name="id" value="<?= $post['id'] ?>">
-                        <button type="submit" 
-                                onclick="return confirm('¿Estás seguro de eliminar este post?')"
-                                class="bg-red-600 text-white rounded-lg py-3 px-6 hover:bg-red-700 transition-colors">
-                            Eliminar
-                        </button>
-                    </form>
+                    <?php if ($puede_editar): ?>
+                        <a href="editar-post.php?id=<?= $post['id'] ?>" 
+                           class="bg-black text-white rounded-lg py-3 px-6 hover:bg-gray-800 transition-colors">
+                            Editar
+                        </a>
+                    <?php endif; ?>
+                    
+                    <?php if ($puede_eliminar): ?>
+                        <form method="POST" action="eliminar-post.php" class="inline">
+                            <input type="hidden" name="id" value="<?= $post['id'] ?>">
+                            <button type="submit" 
+                                    onclick="return confirm('¿Estás seguro de eliminar este post?')"
+                                    class="bg-red-600 text-white rounded-lg py-3 px-6 hover:bg-red-700 transition-colors">
+                                Eliminar
+                            </button>
+                        </form>
+                    <?php endif; ?>
                 </div>
-                <?php endif; ?>
 
                 <div class="mt-8 pt-8 border-t border-gray-200">
                     <a href="index.php" class="text-gray-600 hover:text-gray-900 font-serif">
