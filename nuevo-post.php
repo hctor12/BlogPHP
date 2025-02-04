@@ -14,8 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $contenido = $_POST['contenido'] ?? '';
     $categoria = $_POST['categoria'] ?? '';
 
-    if (empty($titulo) || empty($contenido) || empty($categoria)) {
-        $error = 'Todos los campos son obligatorios';
+    // Strip tags to check if there's actual content
+    $contenido_limpio = trim(strip_tags($contenido));
+
+    if (empty($titulo) || empty($contenido_limpio) || empty($categoria)) {
+        $error = 'Todos los campos son obligatorios y el contenido no puede estar vacío';
     } else {
         $stmt = $pdo->prepare("
             INSERT INTO posts (titulo, contenido, categoria, autor_id, fecha_publicacion) 
@@ -90,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         <?php endif; ?>
 
-        <form method="POST" class="space-y-4 flex-1 flex flex-col" onsubmit="submitForm(event)">
+        <form method="POST" class="space-y-4 flex-1 flex flex-col" onsubmit="return validateForm(event)">
             <div>
                 <label for="titulo" class="block text-lg font-serif text-gray-900 mb-2">Título</label>
                 <input type="text" id="titulo" name="titulo" required 
@@ -204,11 +207,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         });
 
-        function submitForm(e) {
+        function validateForm(e) {
             e.preventDefault();
             var form = e.target;
             var contenido = document.querySelector('#contenido');
-            contenido.value = quill.root.innerHTML;
+            var contenidoQuill = quill.root.innerHTML;
+            
+            // Check if the content is empty (only whitespace or HTML tags)
+            var contenidoLimpio = contenidoQuill.replace(/<[^>]*>/g, '').trim();
+            
+            if (!contenidoLimpio) {
+                alert('El contenido del post no puede estar vacío');
+                return false;
+            }
+            
+            contenido.value = contenidoQuill;
             form.submit();
         }
     </script>
