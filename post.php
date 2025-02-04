@@ -34,11 +34,12 @@ $puede_editar = isset($_SESSION['user_id']) &&
 </head>
 <body class="bg-white h-screen flex flex-col">
     <!-- Navbar -->
+     <div class="min-h-screen">
     <nav class="bg-white">
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div>
-                    <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">TechBlog</a>
+                    <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">Blog</a>
                 </div>
                 <div class="flex items-center space-x-4">
                     <?php if(isset($_SESSION['user_id'])): ?>
@@ -106,5 +107,41 @@ $puede_editar = isset($_SESSION['user_id']) &&
             </article>
         </div>
     </main>
+    </div>
+    <footer class="bg-black text-white py-8 md:py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-serif mb-4">Blog</h3>
+                    <p class="text-gray-400">Tu fuente de información sobre tecnología, programación y más.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-serif mb-4">Categorías</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.php?categoria=programacion" class="text-gray-400 hover:text-white transition-colors">Programación</a></li>
+                        <li><a href="index.php?categoria=hardware" class="text-gray-400 hover:text-white transition-colors">Hardware</a></li>
+                        <li><a href="index.php?categoria=software" class="text-gray-400 hover:text-white transition-colors">Software</a></li>
+                        <li><a href="index.php?categoria=redes" class="text-gray-400 hover:text-white transition-colors">Redes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-serif mb-4">Enlaces</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.php" class="text-gray-400 hover:text-white transition-colors">Inicio</a></li>
+                        <?php if(isset($_SESSION['user_id'])): ?>
+                            <li><a href="nuevo-post.php" class="text-gray-400 hover:text-white transition-colors">Nuevo Post</a></li>
+                            <li><a href="logout.php" class="text-gray-400 hover:text-white transition-colors">Cerrar Sesión</a></li>
+                        <?php else: ?>
+                            <li><a href="login.php" class="text-gray-400 hover:text-white transition-colors">Login</a></li>
+                            <li><a href="register.php" class="text-gray-400 hover:text-white transition-colors">Register</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; <?= date('Y') ?> Blog. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

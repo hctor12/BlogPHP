@@ -52,10 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body class="bg-white flex flex-col min-h-screen">
     <div class="h-screen">
     <nav class="bg-white">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-14">
                 <div>
-                    <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">TechBlog</a>
+                    <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">Blog</a>
                 </div>
                 <div class="flex items-center space-x-4">
                     <?php if(isset($_SESSION['user_id'])): ?>
@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="max-w-6xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <h3 class="text-xl font-serif mb-4">TechBlog</h3>
+                    <h3 class="text-xl font-serif mb-4">Blog</h3>
                     <p class="text-gray-400">Tu fuente de información sobre tecnología, programación y más.</p>
                 </div>
                 <div>
@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; <?= date('Y') ?> TechBlog. Todos los derechos reservados.</p>
+                <p>&copy; <?= date('Y') ?> Blog. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
@@ -177,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         .ql-editor {
             padding: 0.5rem 0;
-            max-height: calc(100vh - 300px);
+            max-height: calc(100vh - 300px);    
             overflow-y: auto;
         }
         .ql-editor.ql-blank::before {

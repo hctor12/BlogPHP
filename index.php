@@ -55,10 +55,10 @@ function getCategoryImage($categoria) {
 <body class="bg-white min-h-screen flex flex-col">
     <!-- Navbar -->
     <nav class="bg-white">
-        <div class="max-w-6xl mx-auto px-4">
+        <div class="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div>
-                    <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">TechBlog</a>
+                    <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">Blog</a>
                 </div>
                 <div class="flex items-center space-x-4">
                     <?php if(isset($_SESSION['user_id'])): ?>
@@ -95,7 +95,7 @@ function getCategoryImage($categoria) {
     </div>
 
     <!-- Header -->
-    <header class="py-12 md:py-20 px-4">
+    <header class="pb-12 md:pb-20 px-4 pt-4 md:pt-8">
         <div class="max-w-6xl mx-auto">
             <h1 class="text-4xl md:text-6xl font-serif text-center"><?= htmlspecialchars($titulo_pagina) ?></h1>
         </div>
@@ -132,7 +132,7 @@ function getCategoryImage($categoria) {
         <div class="max-w-6xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <h3 class="text-xl font-serif mb-4">TechBlog</h3>
+                    <h3 class="text-xl font-serif mb-4">Blog</h3>
                     <p class="text-gray-400">Tu fuente de información sobre tecnología, programación y más.</p>
                 </div>
                 <div>
@@ -159,7 +159,7 @@ function getCategoryImage($categoria) {
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; <?= date('Y') ?> TechBlog. Todos los derechos reservados.</p>
+                <p>&copy; <?= date('Y') ?> Blog. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>

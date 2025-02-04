@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <nav class="py-4">
             <div class="max-w-6xl mx-auto px-4">
                 <div class="flex justify-between items-center">
-                    <a href="index.php" class="text-xl font-medium">TechBlog</a>
+                    <a href="index.php" class="text-xl font-medium">Blog</a>
                 </div>
             </div>
         </nav>
