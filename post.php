@@ -62,7 +62,7 @@ $puede_editar = isset($_SESSION['user_id']) &&
         </div>
     </nav>
 
-    <main class="flex-1 overflow-y-auto">
+    <main class="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto py-12">
             <article class="bg-white">
                 <header class="mb-8">
