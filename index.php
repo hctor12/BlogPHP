@@ -2,7 +2,14 @@
 require_once 'config/database.php';
 
 $categoria = $_GET['categoria'] ?? null;
-$titulo_pagina = $categoria ? ucfirst($categoria) : 'All topics';
+$categorias = [
+    'programacion' => 'Programación',
+    'hardware' => 'Hardware',
+    'software' => 'Software',
+    'redes' => 'Redes'
+];
+
+$titulo_pagina = $categoria ? ($categorias[$categoria] ?? ucfirst($categoria)) : 'All topics';
 
 if ($categoria) {
     $stmt = $pdo->prepare("
@@ -45,10 +52,10 @@ function getCategoryImage($categoria) {
     <title>Blog de Informática</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-white">
+<body class="bg-white min-h-screen flex flex-col">
     <!-- Navbar -->
     <nav class="bg-white">
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-6xl mx-auto px-4">
             <div class="flex justify-between items-center h-16">
                 <div>
                     <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">TechBlog</a>
@@ -75,9 +82,9 @@ function getCategoryImage($categoria) {
     </nav>
 
     <!-- Categories -->
-    <div class="py-6">
-        <div class="max-w-6xl mx-auto">
-            <div class="flex justify-center space-x-12">
+    <div class="py-6 overflow-x-auto">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-start md:justify-center space-x-6 md:space-x-12 min-w-max">
                 <a href="index.php" class="<?= !$categoria ? 'text-purple-600' : 'text-gray-600 hover:text-gray-900' ?>">all topics</a>
                 <a href="index.php?categoria=programacion" class="<?= $categoria === 'programacion' ? 'text-purple-600' : 'text-gray-600 hover:text-gray-900' ?>">programación</a>
                 <a href="index.php?categoria=hardware" class="<?= $categoria === 'hardware' ? 'text-purple-600' : 'text-gray-600 hover:text-gray-900' ?>">hardware</a>
@@ -88,15 +95,15 @@ function getCategoryImage($categoria) {
     </div>
 
     <!-- Header -->
-    <header class="py-20">
+    <header class="py-12 md:py-20 px-4">
         <div class="max-w-6xl mx-auto">
-            <h1 class="text-6xl font-serif text-center"><?= htmlspecialchars($titulo_pagina) ?></h1>
+            <h1 class="text-4xl md:text-6xl font-serif text-center"><?= htmlspecialchars($titulo_pagina) ?></h1>
         </div>
     </header>
 
     <!-- Posts Grid -->
-    <main class="max-w-6xl mx-auto pb-20">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+    <main class="max-w-6xl mx-auto pb-12 md:pb-20 px-4 flex-grow">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
             <?php foreach ($posts as $post): ?>
                 <article class="group">
                     <a href="post.php?id=<?= $post['id'] ?>" class="block aspect-[4/3] overflow-hidden">
@@ -104,12 +111,12 @@ function getCategoryImage($categoria) {
                              alt="<?= htmlspecialchars($post['titulo']) ?>"
                              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                     </a>
-                    <div class="mt-6">
-                        <p class="text-sm text-gray-500 uppercase tracking-wider mb-3"><?= htmlspecialchars($post['categoria']) ?></p>
-                        <h2 class="text-2xl font-serif mb-3">
+                    <div class="mt-4 md:mt-6">
+                        <p class="text-sm text-gray-500 uppercase tracking-wider mb-2 md:mb-3"><?= htmlspecialchars($post['categoria']) ?></p>
+                        <h2 class="text-xl md:text-2xl font-serif mb-2 md:mb-3">
                             <a href="post.php?id=<?= $post['id'] ?>" class="hover:text-gray-600"><?= htmlspecialchars($post['titulo']) ?></a>
                         </h2>
-                        <p class="text-gray-600 mb-4"><?= substr(strip_tags($post['contenido']), 0, 150) ?>...</p>
+                        <p class="text-gray-600 mb-3 md:mb-4"><?= substr(strip_tags($post['contenido']), 0, 150) ?>...</p>
                         <div class="flex justify-between items-center text-sm text-gray-500">
                             <span><?= htmlspecialchars($post['nombre'] . ' ' . $post['apellidos']) ?></span>
                             <span><?= date('d/m/Y', strtotime($post['fecha_publicacion'])) ?></span>
@@ -119,5 +126,42 @@ function getCategoryImage($categoria) {
             <?php endforeach; ?>
         </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-8 md:py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-serif mb-4">TechBlog</h3>
+                    <p class="text-gray-400">Tu fuente de información sobre tecnología, programación y más.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-serif mb-4">Categorías</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.php?categoria=programacion" class="text-gray-400 hover:text-white transition-colors">Programación</a></li>
+                        <li><a href="index.php?categoria=hardware" class="text-gray-400 hover:text-white transition-colors">Hardware</a></li>
+                        <li><a href="index.php?categoria=software" class="text-gray-400 hover:text-white transition-colors">Software</a></li>
+                        <li><a href="index.php?categoria=redes" class="text-gray-400 hover:text-white transition-colors">Redes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-serif mb-4">Enlaces</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.php" class="text-gray-400 hover:text-white transition-colors">Inicio</a></li>
+                        <?php if(isset($_SESSION['user_id'])): ?>
+                            <li><a href="nuevo-post.php" class="text-gray-400 hover:text-white transition-colors">Nuevo Post</a></li>
+                            <li><a href="logout.php" class="text-gray-400 hover:text-white transition-colors">Cerrar Sesión</a></li>
+                        <?php else: ?>
+                            <li><a href="login.php" class="text-gray-400 hover:text-white transition-colors">Login</a></li>
+                            <li><a href="register.php" class="text-gray-400 hover:text-white transition-colors">Register</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; <?= date('Y') ?> TechBlog. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
