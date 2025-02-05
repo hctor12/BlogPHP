@@ -299,7 +299,7 @@ Quill.register(Font, true);
                     ['bold', 'italic', 'underline', 'strike'],
                     [{ 'align': [] }],
                     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    ['link', 'code-block'],
+                    ['link'],
                     ['clean']
                 ]
             }

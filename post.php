@@ -147,24 +147,42 @@ $puede_eliminar = isset($_SESSION['user_id']) &&
             text-align: justify;
         }
 
-        /* Estilos para listas */
-        .ql-editor ul {
-            list-style-type: disc !important;
-            margin-left: 1.5em !important;
-            padding-left: 0 !important;
+        /* Estilos mejorados para listas */
+        .prose ul, 
+        .prose ol,
+        .ql-editor ul,
+        .ql-editor ol {
+            list-style-type: revert !important;
+            margin: 1.25em 0 !important;
+            padding-left: 1.625em !important;
         }
+
+        .prose ul > li,
+        .prose ol > li,
+        .ql-editor ul > li,
+        .ql-editor ol > li {
+            margin: 0.5em 0 !important;
+            padding-left: 0.375em !important;
+        }
+
+        .prose ul > li::before,
+        .ql-editor ul > li::before {
+            display: none !important;
+        }
+
+        .prose ol,
         .ql-editor ol {
             list-style-type: decimal !important;
-            margin-left: 1.5em !important;
-            padding-left: 0 !important;
         }
-        .ql-editor li {
-            padding-left: 0.5em !important;
-            margin-bottom: 0.5em !important;
+
+        .prose ul,
+        .ql-editor ul {
+            list-style-type: disc !important;
         }
 
         /* Estilos para bloques de código */
-        .ql-editor pre.ql-syntax {
+        .ql-editor pre.ql-syntax,
+        .prose pre.ql-syntax {
             background-color: #23241f !important;
             color: #f8f8f2 !important;
             overflow: visible;
@@ -191,6 +209,12 @@ $puede_eliminar = isset($_SESSION['user_id']) &&
         .prose .ql-editor > * {
             margin: revert;
             padding: revert;
+        }
+
+        /* Estilos adicionales para garantizar la visualización correcta de las listas */
+        .prose .ql-editor ul li,
+        .prose .ql-editor ol li {
+            list-style: revert !important;
         }
     </style>
 </head>
