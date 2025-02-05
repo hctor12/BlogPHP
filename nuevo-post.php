@@ -53,84 +53,88 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 </head>
 <body class="bg-white flex flex-col min-h-screen">
-    <div class="h-screen">
-    <nav class="bg-white">
-        <div class="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div>
-                    <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">Blog</a>
+    <div class="min-h-screen">
+        <!-- Navbar - Now fixed and with blur effect -->
+        <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md">
+            <div class="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div>
+                        <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">Blog</a>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <?php if(isset($_SESSION['user_id'])): ?>
+                            <a href="nuevo-post.php" class="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-transparent rounded-md text-sm font-medium text-white bg-black hover:bg-gray-800 transition-colors">
+                                Nuevo Post
+                            </a>
+                            <a href="logout.php" class="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                                Cerrar Sesión
+                            </a>
+                        <?php endif; ?>
+                    </div>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <?php if(isset($_SESSION['user_id'])): ?>
-                        <a href="nuevo-post.php" class="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-transparent rounded-md text-sm font-medium text-white bg-black hover:bg-gray-800 transition-colors">
-                            Nuevo Post
-                        </a>
-                        <a href="logout.php" class="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
-                            Cerrar Sesión
-                        </a>
-                    <?php endif; ?>
+            </div>
+        </nav>
+
+        <!-- Add padding to account for fixed navbar -->
+        <div class="pt-24">
+            <header class="py-4 sm:py-6">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h1 class="text-3xl sm:text-5xl font-serif text-center">Nuevo Post</h1>
                 </div>
-            </div>
+            </header>
+
+            <main class="max-w-3xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col pb-12 md:pb-20">
+                <?php if ($error): ?>
+                    <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-2 rounded mb-4">
+                        <?= htmlspecialchars($error) ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($success): ?>
+                    <div class="bg-green-50 border border-green-200 text-green-600 px-4 py-2 rounded mb-4">
+                        <?= htmlspecialchars($success) ?>
+                    </div>
+                <?php endif; ?>
+
+                <form method="POST" class="space-y-4 flex-1 flex flex-col" onsubmit="return validateForm(event)">
+                    <div>
+                        <label for="titulo" class="block text-lg font-serif text-gray-900 mb-2">Título</label>
+                        <input type="text" id="titulo" name="titulo" required 
+                               class="block w-full text-xl sm:text-2xl font-serif border-0 border-b border-gray-200 focus:border-black focus:ring-0 pb-2 placeholder-gray-300"
+                               placeholder="Escribe el título de tu post...">
+                    </div>
+
+                    <div>
+                        <label for="categoria" class="block text-lg font-serif text-gray-900 mb-2">Categoría</label>
+                        <select id="categoria" name="categoria" required 
+                                class="block w-full border-0 border-b border-gray-200 focus:border-black focus:ring-0 pb-2 font-serif">
+                            <option value="">Selecciona una categoría</option>
+                            <option value="programacion">Programación</option>
+                            <option value="hardware">Hardware</option>
+                            <option value="software">Software</option>
+                            <option value="redes">Redes</option>
+                        </select>
+                    </div>
+
+                    <div class="flex-1 flex flex-col">
+                        <label for="editor" class="block text-lg font-serif text-gray-900 mb-2">Contenido</label>
+                        <div id="editor" class="flex-1 font-serif min-h-24"></div>
+                        <input type="hidden" name="contenido" id="contenido">
+                    </div>
+
+                    <div class="flex justify-end space-x-4 pt-4">
+                        <a href="javascript:history.back()" 
+                           class="bg-gray-100 text-gray-700 rounded-lg py-2 px-4 sm:py-2.5 sm:px-6 hover:bg-gray-200 transition-colors text-base sm:text-lg">
+                            Cancelar
+                        </a>
+                        <button type="submit" 
+                                class="bg-black text-white rounded-lg py-2 px-4 sm:py-2.5 sm:px-6 hover:bg-gray-800 transition-colors text-base sm:text-lg">
+                            Publicar Post
+                        </button>
+                    </div>
+                </form>
+            </main>
         </div>
-    </nav>
-
-    <header class="py-4 sm:py-6">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl sm:text-5xl font-serif text-center">Nuevo Post</h1>
-        </div>
-    </header>
-
-    <main class="max-w-3xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col pb-12 md:pb-20">
-        <?php if ($error): ?>
-            <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-2 rounded mb-4">
-                <?= htmlspecialchars($error) ?>
-            </div>
-        <?php endif; ?>
-
-        <?php if ($success): ?>
-            <div class="bg-green-50 border border-green-200 text-green-600 px-4 py-2 rounded mb-4">
-                <?= htmlspecialchars($success) ?>
-            </div>
-        <?php endif; ?>
-
-        <form method="POST" class="space-y-4 flex-1 flex flex-col" onsubmit="return validateForm(event)">
-            <div>
-                <label for="titulo" class="block text-lg font-serif text-gray-900 mb-2">Título</label>
-                <input type="text" id="titulo" name="titulo" required 
-                       class="block w-full text-xl sm:text-2xl font-serif border-0 border-b border-gray-200 focus:border-black focus:ring-0 pb-2 placeholder-gray-300"
-                       placeholder="Escribe el título de tu post...">
-            </div>
-
-            <div>
-                <label for="categoria" class="block text-lg font-serif text-gray-900 mb-2">Categoría</label>
-                <select id="categoria" name="categoria" required 
-                        class="block w-full border-0 border-b border-gray-200 focus:border-black focus:ring-0 pb-2 font-serif">
-                    <option value="">Selecciona una categoría</option>
-                    <option value="programacion">Programación</option>
-                    <option value="hardware">Hardware</option>
-                    <option value="software">Software</option>
-                    <option value="redes">Redes</option>
-                </select>
-            </div>
-
-            <div class="flex-1 flex flex-col">
-                <label for="editor" class="block text-lg font-serif text-gray-900 mb-2">Contenido</label>
-                <div id="editor" class="flex-1 font-serif min-h-24"></div>
-                <input type="hidden" name="contenido" id="contenido">
-            </div>
-
-            <div class="flex justify-end space-x-4 pt-4">
-                <a href="javascript:history.back()" 
-                   class="bg-gray-100 text-gray-700 rounded-lg py-2 px-4 sm:py-2.5 sm:px-6 hover:bg-gray-200 transition-colors text-base sm:text-lg">
-                    Cancelar
-                </a>
-                <button type="submit" 
-                        class="bg-black text-white rounded-lg py-2 px-4 sm:py-2.5 sm:px-6 hover:bg-gray-800 transition-colors text-base sm:text-lg">
-                    Publicar Post
-                </button>
-            </div>
-        </form>
-    </main>
     </div>
 
     <footer class="bg-black text-white py-8 md:py-12">
