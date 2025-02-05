@@ -32,6 +32,7 @@ $puede_eliminar = isset($_SESSION['user_id']) &&
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($post['titulo']) ?> - Blog de Informática</title>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white h-screen flex flex-col">

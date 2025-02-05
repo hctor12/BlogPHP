@@ -194,16 +194,84 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-style: normal;
             color: #d1d5db;
         }
+        /* Estilos personalizados para el editor */
+        .ql-snow .ql-picker.ql-size .ql-picker-label::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item::before {
+            content: 'Normal';
+            font-size: 13px !important;
+        }
+        .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="10px"]::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="10px"]::before {
+            content: 'Pequeño';
+        }
+        .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="13px"]::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="13px"]::before {
+            content: 'Normal';
+        }
+        .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="16px"]::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="16px"]::before {
+            content: 'Mediano';
+        }
+        .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="20px"]::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="20px"]::before {
+            content: 'Grande';
+        }
+        .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="24px"]::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="24px"]::before {
+            content: 'Muy Grande';
+        }
+        .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="32px"]::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="32px"]::before {
+            content: 'Enorme';
+        }
+
+        /* Estilos para el selector de fuentes */
+        .ql-snow .ql-picker.ql-font .ql-picker-label::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item::before {
+            content: 'Sans Serif';
+        }
+        .ql-snow .ql-picker.ql-font.ql-expanded .ql-picker-options {
+            min-width: 120px;
+        }
+        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="serif"]::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="serif"]::before {
+            content: 'Serif';
+            font-family: Georgia, Times New Roman, serif;
+        }
+        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="monospace"]::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="monospace"]::before {
+            content: 'Monospace';
+            font-family: Monaco, Courier New, monospace;
+        }
+        .ql-font-serif {
+            font-family: Georgia, Times New Roman, serif;
+        }
+        .ql-font-monospace {
+            font-family: Monaco, Courier New, monospace;
+        }
     </style>
 
     <script>
+        // Registrar el módulo de fuentes
+        var Font = Quill.import('formats/font');
+        Font.whitelist = ['serif', 'monospace']; // Sans serif es el default
+        Quill.register(Font, true);
+
+        // Registrar tamaños personalizados
+        var Size = Quill.import('attributors/style/size');
+        Size.whitelist = ['10px', '13px', '16px', '20px', '24px', '32px'];
+        Quill.register(Size, true);
+
         var quill = new Quill('#editor', {
             theme: 'snow',
             placeholder: 'Empieza a escribir tu post...',
             modules: {
                 toolbar: [
-                    ['bold', 'italic', 'underline'],
-                    [{ 'header': [1, 2, false] }],
+                    [{ 'font': ['', 'serif', 'monospace'] }],
+                    [{ 'size': ['10px', '13px', '16px', '20px', '24px', '32px'] }],
+                    [{ 'color': [] }, { 'background': [] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'align': [] }],
                     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
                     ['link', 'code-block'],
                     ['clean']
