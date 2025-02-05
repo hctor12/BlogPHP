@@ -243,36 +243,62 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         /* Estilos para el selector de fuentes */
-        .ql-snow .ql-picker.ql-font .ql-picker-label::before,
-        .ql-snow .ql-picker.ql-font .ql-picker-item::before {
-            content: 'Sans Serif';
-        }
-        .ql-snow .ql-picker.ql-font.ql-expanded .ql-picker-options {
-            min-width: 120px;
-        }
-        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="serif"]::before,
-        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="serif"]::before {
-            content: 'Serif';
-            font-family: Georgia, Times New Roman, serif;
-        }
-        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="monospace"]::before,
-        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="monospace"]::before {
-            content: 'Monospace';
-            font-family: Monaco, Courier New, monospace;
-        }
-        .ql-font-serif {
-            font-family: Georgia, Times New Roman, serif;
-        }
-        .ql-font-monospace {
-            font-family: Monaco, Courier New, monospace;
-        }
+.ql-snow .ql-picker.ql-font .ql-picker-label::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item::before {
+    content: 'Arial';
+}
+.ql-snow .ql-picker.ql-font.ql-expanded .ql-picker-options {
+    min-width: 120px;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="arial"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="arial"]::before {
+    content: 'Arial';
+    font-family: Arial, sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="verdana"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="verdana"]::before {
+    content: 'Verdana';
+    font-family: Verdana, sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="tahoma"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="tahoma"]::before {
+    content: 'Tahoma';
+    font-family: Tahoma, sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="trebuchet"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="trebuchet"]::before {
+    content: 'Trebuchet MS';
+    font-family: 'Trebuchet MS', sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="georgia"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="georgia"]::before {
+    content: 'Georgia';
+    font-family: Georgia, serif;
+}
+.ql-font-arial {
+    font-family: Arial, sans-serif;
+}
+.ql-font-verdana {
+    font-family: Verdana, sans-serif;
+}
+.ql-font-tahoma {
+    font-family: Tahoma, sans-serif;
+}
+.ql-font-trebuchet {
+    font-family: 'Trebuchet MS', sans-serif;
+}
+.ql-font-georgia {
+    font-family: Georgia, serif;
+}
+
     </style>
 
     <script>
         // Registrar el módulo de fuentes
-        var Font = Quill.import('formats/font');
-        Font.whitelist = ['serif', 'monospace']; // Sans serif es el default
-        Quill.register(Font, true);
+var Font = Quill.import('formats/font');
+Font.whitelist = ['arial', 'verdana', 'tahoma', 'trebuchet', 'georgia'];
+Quill.register(Font, true);
+
 
         // Registrar tamaños personalizados
         var Size = Quill.import('attributors/style/size');
@@ -284,7 +310,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             placeholder: 'Empieza a escribir tu post...',
             modules: {
                 toolbar: [
-                    [{ 'font': ['', 'serif', 'monospace'] }],
+                    [{ 'font': ['arial', 'verdana', 'tahoma', 'trebuchet', 'georgia'] }],
                     [{ 'size': ['10px', '13px', '16px', '20px', '24px', '32px'] }],
                     [{ 'color': [] }, { 'background': [] }],
                     ['bold', 'italic', 'underline', 'strike'],
