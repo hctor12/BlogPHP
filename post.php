@@ -34,6 +34,165 @@ $puede_eliminar = isset($_SESSION['user_id']) &&
     <title><?= htmlspecialchars($post['titulo']) ?> - Blog de Informática</title>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .ql-toolbar.ql-snow {
+            border: none;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 8px 0;
+        }
+        .ql-container.ql-snow {
+            border: none;
+            font-family: ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
+            font-size: 1.125rem;
+        }
+        .ql-editor {
+            padding: 0.5rem 0;
+            max-height: none;
+            overflow-y: visible;
+        }
+        .ql-editor.ql-blank::before {
+            left: 0;
+            font-style: normal;
+            color: #d1d5db;
+        }
+
+        /* Estilos personalizados para el editor */
+        .ql-snow .ql-picker.ql-size .ql-picker-label::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item::before {
+            content: 'Normal';
+            font-size: 13px !important;
+        }
+        .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="10px"]::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="10px"]::before {
+            content: 'Pequeño';
+        }
+        .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="13px"]::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="13px"]::before {
+            content: 'Normal';
+        }
+        .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="16px"]::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="16px"]::before {
+            content: 'Mediano';
+        }
+        .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="20px"]::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="20px"]::before {
+            content: 'Grande';
+        }
+        .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="24px"]::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="24px"]::before {
+            content: 'Muy Grande';
+        }
+        .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="32px"]::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="32px"]::before {
+            content: 'Enorme';
+        }
+
+        /* Estilos para el selector de fuentes */
+        .ql-snow .ql-picker.ql-font .ql-picker-label::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item::before {
+            content: 'Arial';
+        }
+        .ql-snow .ql-picker.ql-font.ql-expanded .ql-picker-options {
+            min-width: 120px;
+        }
+        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="arial"]::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="arial"]::before {
+            content: 'Arial';
+            font-family: Arial, sans-serif;
+        }
+        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="verdana"]::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="verdana"]::before {
+            content: 'Verdana';
+            font-family: Verdana, sans-serif;
+        }
+        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="tahoma"]::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="tahoma"]::before {
+            content: 'Tahoma';
+            font-family: Tahoma, sans-serif;
+        }
+        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="trebuchet"]::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="trebuchet"]::before {
+            content: 'Trebuchet MS';
+            font-family: 'Trebuchet MS', sans-serif;
+        }
+        .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="georgia"]::before,
+        .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="georgia"]::before {
+            content: 'Georgia';
+            font-family: Georgia, serif;
+        }
+        .ql-font-arial {
+            font-family: Arial, sans-serif;
+        }
+        .ql-font-verdana {
+            font-family: Verdana, sans-serif;
+        }
+        .ql-font-tahoma {
+            font-family: Tahoma, sans-serif;
+        }
+        .ql-font-trebuchet {
+            font-family: 'Trebuchet MS', sans-serif;
+        }
+        .ql-font-georgia {
+            font-family: Georgia, serif;
+        }
+
+        /* Estilos para alineación de texto */
+        .ql-align-center {
+            text-align: center;
+        }
+        .ql-align-right {
+            text-align: right;
+        }
+        .ql-align-justify {
+            text-align: justify;
+        }
+
+        /* Estilos para listas */
+        .ql-editor ul {
+            list-style-type: disc !important;
+            margin-left: 1.5em !important;
+            padding-left: 0 !important;
+        }
+        .ql-editor ol {
+            list-style-type: decimal !important;
+            margin-left: 1.5em !important;
+            padding-left: 0 !important;
+        }
+        .ql-editor li {
+            padding-left: 0.5em !important;
+            margin-bottom: 0.5em !important;
+        }
+
+        /* Estilos para bloques de código */
+        .ql-editor pre.ql-syntax {
+            background-color: #23241f !important;
+            color: #f8f8f2 !important;
+            overflow: visible;
+            padding: 1em !important;
+            border-radius: 0.375rem !important;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+            font-size: 0.875rem !important;
+            line-height: 1.5 !important;
+            white-space: pre-wrap !important;
+            margin: 1em 0 !important;
+        }
+
+        /* Ajustes específicos para la vista de post */
+        .ql-container.ql-snow {
+            border: none;
+        }
+        .ql-editor {
+            padding: 0;
+        }
+        .prose .ql-editor {
+            all: inherit;
+            font-family: inherit;
+        }
+        .prose .ql-editor > * {
+            margin: revert;
+            padding: revert;
+        }
+    </style>
 </head>
 <body class="bg-white h-screen flex flex-col">
     <div class="min-h-screen">

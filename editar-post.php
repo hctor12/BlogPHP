@@ -302,6 +302,7 @@ Quill.register(Font, true);
 
         // Registrar tamaños personalizados
         var Size = Quill.import('attributors/style/size');
+
         Size.whitelist = ['10px', '13px', '16px', '20px', '24px', '32px'];
         Quill.register(Size, true);
 
@@ -316,9 +317,9 @@ Quill.register(Font, true);
                     ['bold', 'italic', 'underline', 'strike'],
                     [{ 'align': [] }],
                     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    ['link', 'code-block'],
+                    ['link'],
                     ['clean']
-                ]
+                ],
             }
         });
 
@@ -340,6 +341,7 @@ Quill.register(Font, true);
             }
             
             contenido.value = contenidoQuill;
+            
             form.submit();
         }
     </script>
