@@ -25,6 +25,6 @@ $stmt = $pdo->prepare("DELETE FROM posts WHERE id = :id");
 try {
     $stmt->execute(['id' => $id]);
     header('Location: index.php');
-} catch(PDOException $e) {
+} catch (PDOException $e) {
     die('Error al eliminar el post');
 }
