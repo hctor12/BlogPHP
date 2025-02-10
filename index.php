@@ -9,7 +9,7 @@ $categorias = [
     'redes' => 'Redes'
 ];
 
-$titulo_pagina = $categoria ? ($categorias[$categoria] ?? ucfirst($categoria)) : 'All topics';
+$titulo_pagina = $categoria ? ($categorias[$categoria] ?? ucfirst($categoria)) : 'Todos los Temas';
 
 if ($categoria) {
     $stmt = $pdo->prepare("
@@ -88,7 +88,7 @@ function getCategoryImage($categoria)
             <div class="py-6 overflow-x-auto">
                 <div class="max-w-6xl mx-auto px-4">
                     <div class="flex justify-start md:justify-center space-x-6 md:space-x-12 min-w-max">
-                        <a href="index.php" class="<?= !$categoria ? 'text-purple-600' : 'text-gray-600 hover:text-gray-900' ?>">all topics</a>
+                        <a href="index.php" class="<?= !$categoria ? 'text-purple-600' : 'text-gray-600 hover:text-gray-900' ?>">todos los temas</a>
                         <a href="index.php?categoria=programacion" class="<?= $categoria === 'programacion' ? 'text-purple-600' : 'text-gray-600 hover:text-gray-900' ?>">programación</a>
                         <a href="index.php?categoria=hardware" class="<?= $categoria === 'hardware' ? 'text-purple-600' : 'text-gray-600 hover:text-gray-900' ?>">hardware</a>
                         <a href="index.php?categoria=software" class="<?= $categoria === 'software' ? 'text-purple-600' : 'text-gray-600 hover:text-gray-900' ?>">software</a>

@@ -202,8 +202,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Validar contraseña
             else if (password.length < 8) {
                 error = 'La contraseña debe tener al menos 8 caracteres';
-            } else if (!password.match(/[!@#$%^&*(),.?":{}|<>]/)) {
-                error = 'La contraseña debe contener al menos un símbolo (!@#$%^&*(),.?":{}|<script>)';
+            } else if (!password.match(/[!@#$%^&*(),.?":{}|<script>]/)) {
+                error = 'La contraseña debe contener al menos un símbolo (!@#$%^&*(),.?":{}|<>)';
             }
 
             if (error) {
