@@ -93,23 +93,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <div class="min-h-screen flex flex-col">
-        <nav class="py-4">
-            <div class="max-w-6xl mx-auto px-4">
-                <div class="flex justify-between items-center">
-                    <a href="index.php" class="text-xl font-medium">Blog</a>
+        <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md">
+            <div class="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">Blog</a>
                 </div>
+
             </div>
         </nav>
 
         <div class="flex-grow flex items-center justify-center py-12 px-4">
             <div class="max-w-md w-full">
                 <h2 class="text-3xl font-serif text-center mb-8">Registro</h2>
-
-                <?php if ($error): ?>
-                    <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded mb-6">
-                        <?= htmlspecialchars($error) ?>
-                    </div>
-                <?php endif; ?>
 
                 <form method="POST" class="space-y-6">
                     <div>
@@ -202,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Validar contraseña
             else if (password.length < 8) {
                 error = 'La contraseña debe tener al menos 8 caracteres';
-            } else if (!password.match(/[!@#$%^&*(),.?":{}|<script>]/)) {
+            } else if (!password.match(/[!@#$%^&*(),.?":{}|<>]/)) {
                 error = 'La contraseña debe contener al menos un símbolo (!@#$%^&*(),.?":{}|<>)';
             }
 
@@ -211,6 +206,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 showModal(error);
             }
         });
+
+        // Mostrar error del servidor si existe
+        <?php if ($error): ?>
+            showModal(<?= json_encode($error) ?>);
+        <?php endif; ?>
     </script>
 </body>
 
