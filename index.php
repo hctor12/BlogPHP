@@ -85,9 +85,9 @@ function getCategoryImage($categoria)
         </nav>
         <div class="pt-24">
             <!-- Categorías -->
-            <div class="py-6 overflow-x-auto">
+            <div class="py-6">
                 <div class="max-w-6xl mx-auto px-4">
-                    <div class="flex justify-start md:justify-center space-x-6 md:space-x-12 min-w-max">
+                    <div class="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-12">
                         <a href="index.php" class="<?= !$categoria ? 'text-purple-600' : 'text-gray-600 hover:text-gray-900' ?>">todos los temas</a>
                         <a href="index.php?categoria=programacion" class="<?= $categoria === 'programacion' ? 'text-purple-600' : 'text-gray-600 hover:text-gray-900' ?>">programación</a>
                         <a href="index.php?categoria=hardware" class="<?= $categoria === 'hardware' ? 'text-purple-600' : 'text-gray-600 hover:text-gray-900' ?>">hardware</a>
