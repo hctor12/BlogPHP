@@ -50,7 +50,7 @@ function getCategoryImage($categoria)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog de Informática</title>
+    <title>Blog</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 

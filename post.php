@@ -27,12 +27,12 @@ $puede_eliminar = isset($_SESSION['user_id']) &&
         ($_SESSION['is_admin'] && $_SESSION['user_id'] != $post['autor_id']));
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="h-full">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($post['titulo']) ?> - Blog de Informática</title>
+    <title><?= htmlspecialchars($post['titulo']) ?> - Blog</title>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -242,41 +242,47 @@ $puede_eliminar = isset($_SESSION['user_id']) &&
         .prose .ql-editor ol li {
             list-style: revert !important;
         }
+
+        /* Añadir estilo para el contenedor principal */
+        .min-h-screen-minus-header {
+            min-height: calc(100vh - 96px);
+        }
     </style>
 </head>
 
-<body class="bg-white h-screen flex flex-col">
-    <div class="min-h-screen">
-        <!-- Navbar -->
-        <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md">
-            <div class="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-16">
-                    <div>
-                        <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">Blog</a>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <?php if (isset($_SESSION['user_id'])): ?>
-                            <a href="nuevo-post.php" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-black hover:bg-gray-800 transition-colors">
-                                Nuevo Post
-                            </a>
-                            <a href="logout.php" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
-                                Cerrar Sesión
-                            </a>
-                        <?php else: ?>
-                            <a href="login.php" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-black hover:bg-gray-800 transition-colors">
-                                Iniciar Sesión
-                            </a>
-                            <a href="register.php" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
-                                Registrarte
-                            </a>
-                        <?php endif; ?>
-                    </div>
+<body class="min-h-full flex flex-col">
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div>
+                    <a href="index.php" class="text-2xl font-serif font-bold text-gray-900">Blog</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <a href="nuevo-post.php" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-black hover:bg-gray-800 transition-colors">
+                            Nuevo Post
+                        </a>
+                        <a href="logout.php" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                            Cerrar Sesión
+                        </a>
+                    <?php else: ?>
+                        <a href="login.php" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-black hover:bg-gray-800 transition-colors">
+                            Iniciar Sesión
+                        </a>
+                        <a href="register.php" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                            Registrarte
+                        </a>
+                    <?php endif; ?>
                 </div>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <main class="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 pt-24">
-            <div class="max-w-4xl mx-auto py-12">
+    <!-- Main Content -->
+    <div class="flex-grow flex flex-col bg-white">
+        <main class="flex-grow pt-24">
+            <div class="min-h-screen-minus-header max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <article class="bg-white">
                     <header class="mb-8">
                         <p class="text-sm text-gray-500 uppercase tracking-wider mb-3">
@@ -291,7 +297,7 @@ $puede_eliminar = isset($_SESSION['user_id']) &&
                         </div>
                     </header>
 
-                    <div class="prose max-w-none font-serif text-gray-800 leading-relaxed">
+                    <div class="prose max-w-none font-serif text-gray-800 leading-relaxed mb-8">
                         <?= $post['contenido'] ?>
                     </div>
 
@@ -323,76 +329,77 @@ $puede_eliminar = isset($_SESSION['user_id']) &&
                 </article>
             </div>
         </main>
-    </div>
 
-    <!-- Modal de confirmación -->
-    <div id="confirmModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
-        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 transform transition-all">
-            <div class="flex items-start justify-between mb-4">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <svg class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                        </svg>
+        <!-- Modal de confirmación -->
+        <div id="confirmModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 transform transition-all">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <svg class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                        </div>
+                        <h3 class="ml-3 text-lg font-medium text-gray-900">Confirmar eliminación</h3>
                     </div>
-                    <h3 class="ml-3 text-lg font-medium text-gray-900">Confirmar eliminación</h3>
+                    <button type="button" onclick="closeModal()" class="text-gray-400 hover:text-gray-500">
+                        <span class="sr-only">Cerrar</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
-                <button type="button" onclick="closeModal()" class="text-gray-400 hover:text-gray-500">
-                    <span class="sr-only">Cerrar</span>
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <div class="mt-2">
-                <p id="confirmMessage" class="text-sm text-gray-500">¿Estás seguro de que deseas eliminar este post? Esta acción no se puede deshacer.</p>
-            </div>
-            <div class="mt-6 flex space-x-4">
-                <button type="button" onclick="closeModal()" class="flex-1 bg-gray-100 text-gray-700 rounded-lg py-2 px-4 hover:bg-gray-200 transition-colors">
-                    Cancelar
-                </button>
-                <button type="button" onclick="confirmDelete()" class="flex-1 bg-red-600 text-white rounded-lg py-2 px-4 hover:bg-red-700 transition-colors">
-                    Eliminar
-                </button>
+                <div class="mt-2">
+                    <p id="confirmMessage" class="text-sm text-gray-500">¿Estás seguro de que deseas eliminar este post? Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="mt-6 flex space-x-4">
+                    <button type="button" onclick="closeModal()" class="flex-1 bg-gray-100 text-gray-700 rounded-lg py-2 px-4 hover:bg-gray-200 transition-colors">
+                        Cancelar
+                    </button>
+                    <button type="button" onclick="confirmDelete()" class="flex-1 bg-red-600 text-white rounded-lg py-2 px-4 hover:bg-red-700 transition-colors">
+                        Eliminar
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <footer class="bg-black text-white py-8 md:py-12">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 place-items-center text-center">
-                <div class="w-full">
-                    <h3 class="text-xl font-serif mb-4">Blog</h3>
-                    <p class="text-gray-400">Tu fuente de información sobre tecnología, programación y más.</p>
+        <!-- Footer -->
+        <footer class="bg-black text-white py-8 md:py-12">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 place-items-center text-center">
+                    <div class="w-full">
+                        <h3 class="text-xl font-serif mb-4">Blog</h3>
+                        <p class="text-gray-400">Tu fuente de información sobre tecnología, programación y más.</p>
+                    </div>
+                    <div class="w-full">
+                        <h3 class="text-xl font-serif mb-4">Categorías</h3>
+                        <ul class="space-y-2">
+                            <li><a href="index.php?categoria=programacion" class="text-gray-400 hover:text-white transition-colors">Programación</a></li>
+                            <li><a href="index.php?categoria=hardware" class="text-gray-400 hover:text-white transition-colors">Hardware</a></li>
+                            <li><a href="index.php?categoria=software" class="text-gray-400 hover:text-white transition-colors">Software</a></li>
+                            <li><a href="index.php?categoria=redes" class="text-gray-400 hover:text-white transition-colors">Redes</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-full">
+                        <h3 class="text-xl font-serif mb-4">Enlaces</h3>
+                        <ul class="space-y-2">
+                            <li><a href="index.php" class="text-gray-400 hover:text-white transition-colors">Inicio</a></li>
+                            <?php if (isset($_SESSION['user_id'])): ?>
+                                <li><a href="nuevo-post.php" class="text-gray-400 hover:text-white transition-colors">Nuevo Post</a></li>
+                                <li><a href="logout.php" class="text-gray-400 hover:text-white transition-colors">Cerrar Sesión</a></li>
+                            <?php else: ?>
+                                <li><a href="login.php" class="text-gray-400 hover:text-white transition-colors">Iniciar Sesión</a></li>
+                                <li><a href="register.php" class="text-gray-400 hover:text-white transition-colors">Registrarte</a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
                 </div>
-                <div class="w-full">
-                    <h3 class="text-xl font-serif mb-4">Categorías</h3>
-                    <ul class="space-y-2">
-                        <li><a href="index.php?categoria=programacion" class="text-gray-400 hover:text-white transition-colors">Programación</a></li>
-                        <li><a href="index.php?categoria=hardware" class="text-gray-400 hover:text-white transition-colors">Hardware</a></li>
-                        <li><a href="index.php?categoria=software" class="text-gray-400 hover:text-white transition-colors">Software</a></li>
-                        <li><a href="index.php?categoria=redes" class="text-gray-400 hover:text-white transition-colors">Redes</a></li>
-                    </ul>
-                </div>
-                <div class="w-full">
-                    <h3 class="text-xl font-serif mb-4">Enlaces</h3>
-                    <ul class="space-y-2">
-                        <li><a href="index.php" class="text-gray-400 hover:text-white transition-colors">Inicio</a></li>
-                        <?php if (isset($_SESSION['user_id'])): ?>
-                            <li><a href="nuevo-post.php" class="text-gray-400 hover:text-white transition-colors">Nuevo Post</a></li>
-                            <li><a href="logout.php" class="text-gray-400 hover:text-white transition-colors">Cerrar Sesión</a></li>
-                        <?php else: ?>
-                            <li><a href="login.php" class="text-gray-400 hover:text-white transition-colors">Iniciar Sesión</a></li>
-                            <li><a href="register.php" class="text-gray-400 hover:text-white transition-colors">Registrarte</a></li>
-                        <?php endif; ?>
-                    </ul>
+                <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                    <p>&copy; <?= date('Y') ?> Blog. Todos los derechos reservados.</p>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; <?= date('Y') ?> Blog. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <script>
         function showModal() {
