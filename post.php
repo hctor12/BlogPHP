@@ -281,7 +281,7 @@ $puede_eliminar = isset($_SESSION['user_id']) &&
 
     <!-- Main Content -->
     <div class="flex-grow flex flex-col bg-white">
-        <main class="flex-grow pt-24">
+        <main class="flex-grow pt-24 pb-12 md:pb-20">
             <div class="min-h-screen-minus-header max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <article class="bg-white">
                     <header class="mb-8">
