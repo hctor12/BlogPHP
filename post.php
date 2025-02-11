@@ -360,12 +360,12 @@ $puede_eliminar = isset($_SESSION['user_id']) &&
 
     <footer class="bg-black text-white py-8 md:py-12">
         <div class="max-w-6xl mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 place-items-center text-center">
+                <div class="w-full">
                     <h3 class="text-xl font-serif mb-4">Blog</h3>
                     <p class="text-gray-400">Tu fuente de información sobre tecnología, programación y más.</p>
                 </div>
-                <div>
+                <div class="w-full">
                     <h3 class="text-xl font-serif mb-4">Categorías</h3>
                     <ul class="space-y-2">
                         <li><a href="index.php?categoria=programacion" class="text-gray-400 hover:text-white transition-colors">Programación</a></li>
@@ -374,7 +374,7 @@ $puede_eliminar = isset($_SESSION['user_id']) &&
                         <li><a href="index.php?categoria=redes" class="text-gray-400 hover:text-white transition-colors">Redes</a></li>
                     </ul>
                 </div>
-                <div>
+                <div class="w-full">
                     <h3 class="text-xl font-serif mb-4">Enlaces</h3>
                     <ul class="space-y-2">
                         <li><a href="index.php" class="text-gray-400 hover:text-white transition-colors">Inicio</a></li>
