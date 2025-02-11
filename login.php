@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body class="bg-white">
     <!-- Modal de error -->
-    <div id="errorModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+    <div id="errorModal" class="fixed inset-0 bg-black bg-opacity-50 z-[100] hidden flex items-center justify-center">
         <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 transform transition-all">
             <div class="flex items-start justify-between mb-4">
                 <div class="flex items-center">
@@ -63,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <div class="min-h-screen flex flex-col">
+        <!-- Navbar -->
         <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md">
             <div class="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16">
